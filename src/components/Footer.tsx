@@ -1,5 +1,6 @@
 import React from "react";
 import useScene from "../store";
+import gmtk from "../resources/gmtk.jpg";
 
 export default function Footer() {
   const { nextScene, reset } = useScene();
@@ -66,7 +67,7 @@ export default function Footer() {
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row items-center gap-2">
             <img
-              src="/gmtk.jpg"
+              src={gmtk}
               alt=""
               width="40"
               className="w-8 h-8 border-2 border-black rounded-full overflow-hidden"

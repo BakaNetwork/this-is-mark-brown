@@ -1,5 +1,5 @@
-import React from "react";
 import useScene from "../store";
+import gmtkGamejam from "../resources/gmtk2023.png";
 
 export default function SceneGMTK2023() {
   const { nextScene, reset } = useScene();
@@ -31,7 +31,7 @@ export default function SceneGMTK2023() {
           </svg>
         </svg>
       </div>
-      <img src="/gmtk2023.png" alt="" className="max-w-[70vw]" />
+      <img src={gmtkGamejam} alt="" className="max-w-[70vw]" />
     </div>
   );
 }
