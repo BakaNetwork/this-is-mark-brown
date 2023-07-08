@@ -1,6 +1,7 @@
 import React from "react";
 import { DialogCard } from "../components/DialogCard";
 import { TypedSpan } from "../components/TypedSpan";
+import { YoutubeLayout } from "../components/Layout";
 
 export default function HomePage() {
   let prologue = [
@@ -13,9 +14,11 @@ export default function HomePage() {
   // let prologue = [""];
   return (
     <>
-      <DialogCard>
-        <TypedSpan typeSpeed={50} strings={prologue}></TypedSpan>
-      </DialogCard>
+      <YoutubeLayout>
+        <DialogCard>
+          <TypedSpan typeSpeed={50} strings={prologue}></TypedSpan>
+        </DialogCard>
+      </YoutubeLayout>
     </>
   );
 }

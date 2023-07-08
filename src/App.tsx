@@ -4,12 +4,8 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="h-[100vh] relative">
-      <Header></Header>
-      <div id="container max-h-[90vh]">
-        <ScenesManager />
-      </div>
-      <Footer></Footer>
+    <div id="container" className={`h-screen w-screen`}>
+      <ScenesManager />
     </div>
   );
 }

@@ -93,7 +93,8 @@ export const TypedSpan = ({
       {/*<span className={`whitespace-pre`} ref={el} />*/}
       <Typist
         onCharacterTyped={() => playSound()}
-        avgTypingDelay={50}
+        avgTypingDelay={typeSpeed}
+        stdTypingDelay={typeSpeed / 2}
         cursor={{
           show: true,
           blink: true,

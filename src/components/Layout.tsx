@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { EditorTimeline } from "./EditorTimeline";
+import YouTubeHeader from "./YouTubeHeader";
 
 interface Props {
   children?: ReactNode;
@@ -11,18 +12,19 @@ interface Props {
 export const YoutubeLayout = ({ children, ...props }: Props) => {
   return (
     <>
-      <Header></Header>
-      <div>{children}</div>
+      <YouTubeHeader></YouTubeHeader>
+      <div className={`w-screen flex justify-center items-center align-middle`}>
+        {children}
+      </div>
       <Footer></Footer>
     </>
   );
 };
 
-export const VideoEditorLayout = ({ children, ...props }: Props) => {
+export const MainGameLayout = ({ children, ...props }: Props) => {
   return (
     <>
-      <Header></Header>
-      <div>{children}</div>
+      <div className={`w-screen`}>{children}</div>
       <EditorTimeline></EditorTimeline>
     </>
   );
