@@ -12,6 +12,7 @@ import play = Simulate.play;
 import { TypedSpan } from "../components/TypedSpan";
 import { DialogCard } from "../components/DialogCard";
 import { Separator } from "../components/ui/Separator";
+import MarkBrown from "../resources/mark-brown.png";
 
 export default function Ending() {
   const [reset] = useScene((state) => [state.reset], shallow);
@@ -20,10 +21,16 @@ export default function Ending() {
     <>
       <YoutubeLayout>
         <div
-          className={`flex flex-row w-full h-full bg-gray-600 justify-center`}
+          className={`flex flex-row w-full h-full bg-blue-950 justify-center`}
         >
-          <div className={`border-amber-200 border-2 basis-3/12`}></div>
-          <div className={`flex flex-col bg-gray-500 basis-6/12 `}>
+          <div className={`flex items-end basis-3/12`}>
+            <img
+              src={MarkBrown}
+              alt={`Mark Brown`}
+              className={`absolute w-[37vw]`}
+            />
+          </div>
+          <div className={`flex flex-col basis-6/12 `}>
             <DialogCard className={`m-4`}>
               <TypedSpan>
                 <span>I'm Mark Brown, and this is Game Maker's Toolkit.</span>
@@ -32,7 +39,7 @@ export default function Ending() {
               </TypedSpan>
             </DialogCard>
 
-            <div className={`border-amber-200 border-2 flex-auto m-4 p-4`}>
+            <div className={`flex-auto m-4 p-4`}>
               Correctly sorted games: 4
               <br />
               Precision: 80%
@@ -41,25 +48,29 @@ export default function Ending() {
               <br />
             </div>
           </div>
-          <div
-            className={`flex flex-col gap-8 border-amber-200 border-2 m-4 p-4 basis-3/12 overflow-y-hidden`}
-          >
-            <button onClick={reset}>Play Again</button>
-            <Separator />
-            <div>
-              Developer:
+          <div className={`flex flex-col gap-8 m-4 p-4 basis-3/12`}>
+            <button
+              onClick={reset}
+              className={`text-center flex flex-row flex-auto justify-center items-center text-3xl rounded-2xl border-4 border-orange-700 py-4`}
+            >
+              Play Again!
+            </button>
+            <div
+              className={`text-center rounded-2xl border-4 border-orange-700 py-4`}
+            >
+              <span className={`text-xl`}>Developer:</span>
               <br />
-              Travis Road
-              <br />
-              Ridd Ma
+              Travis Road, Ridd Ma
             </div>
-            <Separator />
-            <div>
-              Special Thanks:
+            <div
+              className={`text-center rounded-2xl border-4 border-orange-700 py-4`}
+            >
+              <span className={`text-xl`}>Special Thanks:</span>
               <br />
               Mark Brown and ALL of you who take part in GMTK Game Jam that
               makes amazing games!
             </div>
+            <div></div>
           </div>
           <div
             className={`absolute bg-blue-400 opacity-0 w-screen pointer-events-none`}
