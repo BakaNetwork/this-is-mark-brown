@@ -4,13 +4,15 @@ import Scene1 from "./scenes/Scene1";
 import React, { useEffect, useState } from "react";
 import SceneGMTK2023 from "./scenes/SceneGMTK2023";
 import Scene2 from "./scenes/Scene2";
+import SceneDescription from "./scenes/SceneDescription";
+import MainGame from "./scenes/MainGame";
 
 export default function ScenesManager() {
   const { idx, nextScene, reset, updateLen } = useScene();
   const [scenes, setScenes] = useState<React.ReactNode[]>([]);
 
   useEffect(() => {
-    const lz = [<SceneGMTK2023 />, <HomePage />, <Scene1 />, <Scene2 />];
+    const lz = [<SceneGMTK2023 />, <SceneDescription />, <MainGame />];
     setScenes(lz);
     updateLen(lz.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps

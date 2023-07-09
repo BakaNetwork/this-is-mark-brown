@@ -8,6 +8,9 @@ module.exports = {
           darkbg: "#0f0f0f",
         },
       },
+      fontFamily: {
+        pixel: ["pixel"],
+      },
     },
   },
   plugins: [],

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { nullGameObject, swap } from "./utils/GameUtils";
 
 type Store = {
   idx: number;
@@ -21,6 +22,8 @@ type Game = {
   title: string;
   description: string;
   thumbnail: string;
+  width: number;
+  height: number;
 };
 
 type GameStore = {
@@ -34,6 +37,7 @@ type GameStore = {
   nextCurrentGame: () => void;
   prevCurrentGame: () => void;
   updatePlayableGameList: (games: Game[]) => void;
+  updateSelectedGameList: (games: Game[]) => void;
 };
 
 const useGameStore = create<GameStore>((set) => {
@@ -41,24 +45,11 @@ const useGameStore = create<GameStore>((set) => {
   const selectedGameList = [];
   var i = 0;
   for (i = 0; i < 10; i++) {
-    playableGameList.push({
-      url: "",
-      title: "",
-      description: "",
-      thumbnail: "",
-    });
+    playableGameList.push(nullGameObject);
   }
   for (i = 0; i < 5; i++) {
-    selectedGameList.push({
-      url: "",
-      title: `${i}`,
-      description: "",
-      thumbnail: "",
-    });
+    selectedGameList.push(nullGameObject);
   }
-  const swap = (arr: any[], index1: number, index2: number) => {
-    [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
-  };
 
   return {
     currentGameIdx: 0,
@@ -92,13 +83,20 @@ const useGameStore = create<GameStore>((set) => {
       })),
     prevCurrentGame: () =>
       set((state) => ({
-        currentGameIdx: (state.currentGameIdx - 1) % state.playableGameListLen,
+        currentGameIdx:
+          (state.currentGameIdx + state.playableGameListLen - 1) %
+          state.playableGameListLen,
       })),
     updatePlayableGameList: (games: Game[]) =>
-      set((state) => ({
+      set({
         playableGameList: games,
         playableGameListLen: games.length,
-      })),
+      }),
+    updateSelectedGameList: (games: Game[]) =>
+      set({
+        selectedGameList: games,
+        selectedGameListLen: games.length,
+      }),
   };
 });
 
