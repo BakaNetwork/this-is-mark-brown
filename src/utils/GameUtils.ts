@@ -78,7 +78,7 @@ const addGame = (
   const selected = _.cloneDeep<Game[]>(list);
   console.log(selected, game);
 
-  if (isExistGame(selected, game)) return true;
+  if (isExistGame(selected, game)) return false;
   if (isSelectedGameListFull(selected)) return false;
 
   var i = findFirstNullIndex(selected);
