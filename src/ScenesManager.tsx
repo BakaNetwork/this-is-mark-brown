@@ -1,5 +1,5 @@
 import useScene from "./store";
-import HomePage from "./scenes/HomePage";
+import Intro from "./scenes/Intro";
 import React, { useEffect, useState } from "react";
 import SceneGMTK2023 from "./scenes/SceneGMTK2023";
 import MainGame from "./scenes/MainGame";
@@ -9,7 +9,7 @@ export default function ScenesManager() {
   const [scenes, setScenes] = useState<React.ReactNode[]>([]);
 
   useEffect(() => {
-    const lz = [<SceneGMTK2023 />, <HomePage />, <MainGame />];
+    const lz = [<SceneGMTK2023 />, <Intro />, <MainGame />];
     setScenes(lz);
     updateLen(lz.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
