@@ -4,7 +4,7 @@ import { UserComment } from "../data/UserComments";
 import { getFinalComments } from "../utils/UserCommentUtils";
 import setRandomInterval from "set-random-interval";
 import FlipMove from "react-flip-move";
-import useScene from "../store";
+import useScene, { useGameStore } from "../store";
 import { shallow } from "zustand/shallow";
 import { useInterval } from "usehooks-ts";
 import { Simulate } from "react-dom/test-utils";
@@ -13,9 +13,21 @@ import { TypedSpan } from "../components/TypedSpan";
 import { DialogCard } from "../components/DialogCard";
 import { Separator } from "../components/ui/Separator";
 import MarkBrown from "../resources/mark-brown.png";
+import score, { rightNum } from "../utils/Distance";
+import _ from "lodash";
 
 export default function Ending() {
   const [reset] = useScene((state) => [state.reset], shallow);
+
+  const { selectedGameList, playableGameList } = useGameStore();
+
+  const [scoreNumber, setScoreNumber] = useState(60);
+
+  useEffect(() => {
+    const s = score(selectedGameList, playableGameList);
+    setScoreNumber(_.round(s, 2));
+    console.log(s);
+  }, [selectedGameList, playableGameList]);
 
   return (
     <>
@@ -39,10 +51,11 @@ export default function Ending() {
               </TypedSpan>
             </DialogCard>
 
-            <div className={`flex-auto m-4 p-4`}>
-              Correctly sorted games: 4
+            <div className={`border-amber-200 border-2 flex-auto m-4 p-4`}>
+              Correctly sorted games:&nbsp;
+              {rightNum(selectedGameList, playableGameList)}
               <br />
-              Precision: 80%
+              Precision: {scoreNumber}
               <br />
               User comments: Good
               <br />

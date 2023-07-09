@@ -1,4 +1,6 @@
 import { clamp } from "lodash";
+import { Game } from "../store";
+import _ from "lodash";
 
 function kendallDistance(arr1: number[], arr2: number[]): number {
   if (arr1.length !== arr2.length) {
@@ -34,4 +36,37 @@ function getFinalScore(arr1: number[], arr2: number[]): number {
   return Math.log2(score + 1) * 100;
 }
 
-export default getFinalScore;
+function score(selected: Game[], game: Game[]): number {
+  const lz = selected.map((g: Game) => {
+    var i = 0;
+    for (i = 0; i < game.length; i++) {
+      if (g.url === game[i].url) {
+        return i;
+      }
+    }
+    return 0;
+  });
+  return getFinalScore(lz, _.range(lz.length));
+}
+
+function rightNum(selected: Game[], game: Game[]): number {
+  var ans = 0;
+  selected
+    .map((g: Game) => {
+      var i = 0;
+      for (i = 0; i < game.length; i++) {
+        if (g.url === game[i].url) {
+          return i;
+        }
+      }
+      return 0;
+    })
+    .forEach((x: number, i: number) => {
+      if (x === i) {
+        ans += 1;
+      }
+    });
+  return ans;
+}
+export default score;
+export { rightNum };
