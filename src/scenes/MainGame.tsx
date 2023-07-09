@@ -3,6 +3,7 @@ import Thumbnail from "../components/Thumbnail";
 import useScene, { Game, useGameStore } from "../store";
 import {
   addGame,
+  anyNull,
   deleteGameByIndex,
   isGameNull,
   randomPick,
@@ -19,6 +20,8 @@ import useRank from "../storeRank";
 import Rank, { RankAxis } from "../utils/GameRank";
 import _ from "lodash";
 import tick from "../resources/ui/tick.png";
+import Computer from "../resources/computer-down.png";
+import MarkBrown from "../resources/mark-brown.png";
 
 function SelectedContainer({
   games,
@@ -34,7 +37,7 @@ function SelectedContainer({
   return (
     <>
       {games.map((game: Game, idx: number) => (
-        <div className="max-w-[18vw] mx-2 flex flex-col items-center justify-center group relative">
+        <div className="max-w-[18vw] mx-2 flex flex-col items-center justify-center group relative scale-75">
           <Thumbnail
             src={game.thumbnail}
             title={game.title}
@@ -85,8 +88,8 @@ function PlayableContainer({ game }: { game: Game }) {
       const originalHeight = game.height;
 
       // 计算宽度和高度的缩放比例
-      const widthScale = 960 / originalWidth;
-      const heightScale = 660 / originalHeight;
+      const widthScale = 720 / originalWidth;
+      const heightScale = 405 / originalHeight;
 
       console.log(widthScale, heightScale);
 
@@ -112,7 +115,7 @@ function PlayableContainer({ game }: { game: Game }) {
           title="foo"
           width="100%"
           height="100%"
-          className="w-[960px] h-[660px]"
+          className="w-[720px] h-[405px]"
           //   style={{ zoom: 0.5, transformOrigin: "0 0", transform: "scale(0.5)" }}
         ></iframe>
       )}
@@ -253,11 +256,14 @@ function RankModal({
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog open={isOpen} onClose={() => closeFunc()}>
-        <Dialog.Panel as="div" className="absolute top-[30%]">
+        <Dialog.Panel
+          as="div"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  "
+        >
+          <div className="w-[200vw] h-[200vh] fixed pointer-events-none bg-black/50 top-0 left-0 -translate-x-1/2 -translate-y-1/2 "></div>
           <Transition.Child
             as="div"
             enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100"
@@ -274,32 +280,34 @@ function RankModal({
               />
               <RankItem axis="Presentation" idx={RankAxis.PRESENTATION} />
             </div>
-            <button
-              className="p-2 bg-red-200"
-              onClick={() => {
-                const rankMap = map;
-                const lz = _.cloneDeep(ranks);
-                rankMap.set(currentGame.url, lz);
-                updateMap(rankMap);
-                setRanks([Rank.GOOD, Rank.GOOD, Rank.GOOD]);
-                closeFunc();
-              }}
-            >
-              apply
-            </button>
-            <button
-              className="p-2 bg-red-200"
-              onClick={() => {
-                const rankMap = map;
-                const lz = _.cloneDeep(ranks);
-                rankMap.set(currentGame.url, lz);
-                updateMap(rankMap);
-                setRanks([Rank.GOOD, Rank.GOOD, Rank.GOOD]);
-                closeFunc();
-              }}
-            >
-              Close
-            </button>
+            <div className="flex items-center justify-center">
+              <button
+                className="p-2 bg-red-200"
+                onClick={() => {
+                  const rankMap = map;
+                  const lz = _.cloneDeep(ranks);
+                  rankMap.set(currentGame.url, lz);
+                  updateMap(rankMap);
+                  setRanks([Rank.GOOD, Rank.GOOD, Rank.GOOD]);
+                  closeFunc();
+                }}
+              >
+                Apply
+              </button>
+              <button
+                className="p-2 bg-red-200"
+                onClick={() => {
+                  const rankMap = map;
+                  const lz = _.cloneDeep(ranks);
+                  rankMap.set(currentGame.url, lz);
+                  updateMap(rankMap);
+                  setRanks([Rank.GOOD, Rank.GOOD, Rank.GOOD]);
+                  closeFunc();
+                }}
+              >
+                Close
+              </button>
+            </div>
           </Transition.Child>
         </Dialog.Panel>
       </Dialog>
@@ -354,6 +362,20 @@ export default function MainGame() {
           currentGame={gameList[currentGameIdx]}
         />
       </div>
+      <div className="overflow-x-hidden">
+        <img
+          src={Computer}
+          alt={`Computer`}
+          className="absolute left-0 -top-20 aspect-video w-screen -z-50 overflow-hidden"
+        ></img>
+      </div>
+      <div>
+        <img
+          src={MarkBrown}
+          alt={`Mark Brown`}
+          className={`absolute w-[35vw] bottom-0 translate-x-[10%]`}
+        />
+      </div>
       <div className="flex flex-col items-center justify-center">
         {/* <button
           className="bg-white p-2"
@@ -364,18 +386,18 @@ export default function MainGame() {
         >
           debug!
         </button> */}
-        <div>
+        <div className="absolute left-0 top-1/2 -translate-y-1/2">
           <CurrentGameChangeContainer
             gameList={gameList}
             idx={currentGameIdx}
             openModalFunc={openModal}
           />
         </div>
-        <div>
+        <div className="absolute top-[33%] left-[35%] -z-10">
           <PlayableContainer game={gameList[currentGameIdx]} />
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 w-full flex flex-row m-4 border-2 bg-slate-400">
+      <div className="absolute top-0 left-0 w-full flex flex-row  bg-transparent">
         <SelectedContainer
           games={selectedGameList}
           leftFunc={moveGameLeft}
@@ -384,8 +406,18 @@ export default function MainGame() {
             deleteGameByIndex(selectedGameList, idx, updateSelectedGameList);
           }}
         />
-        <div className="flex items-center justify-center flex-col">
-          <button className="w-16 h-12 border " onClick={nextScene}>
+        <div
+          className={`flex items-center justify-center flex-col text-lg ${
+            anyNull(selectedGameList)
+              ? "opacity-30"
+              : "text-green-300 border-green-300 opacity-100"
+          }`}
+        >
+          <button
+            className="w-16 h-12 border "
+            onClick={nextScene}
+            disabled={anyNull(selectedGameList)}
+          >
             next
           </button>
         </div>

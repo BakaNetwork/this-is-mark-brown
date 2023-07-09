@@ -125,6 +125,13 @@ const deleteGameByIndex = (
   updateFunc(selected);
 };
 
+const anyNull = (arr: Game[]): boolean => {
+  for (const g of arr) {
+    if (isGameNull(g)) return true;
+  }
+  return false;
+};
+
 export {
   randomPickFollowOriginRule,
   randomPick,
@@ -133,4 +140,5 @@ export {
   deleteGameByIndex,
   isGameNull,
   nullGameObject,
+  anyNull,
 };

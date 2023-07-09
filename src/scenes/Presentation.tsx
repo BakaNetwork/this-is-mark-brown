@@ -62,7 +62,7 @@ export default function Presentation() {
       }
     },
     // Delay in milliseconds or null to stop it
-    playVideo ? 1000 : null
+    playVideo ? 9000 : null
   );
 
   useEffect(() => {

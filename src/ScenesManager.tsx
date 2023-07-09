@@ -16,7 +16,7 @@ export default function ScenesManager() {
       state.reset,
       state.updateLen,
     ],
-    shallow,
+    shallow
   );
   const [scenes, setScenes] = useState<React.ReactNode[]>([]);
 
@@ -36,14 +36,8 @@ export default function ScenesManager() {
   return (
     <>
       <div className="w-full text-white m-0 p-0">
-        <button className={`z-40 fixed top-12 right-0`} onClick={prevScene}>
-          [Debug] PrevScene
-        </button>
-        <button className={`fixed top-16 right-0`} onClick={nextScene}>
-          [Debug] NextScene
-        </button>
-        <div className="w-full text-white m-0 p-0">
-          <div>{scenes[idx]}</div>
+        <div className="w-full text-white m-0 p-0 overflow-hidden">
+          {scenes[idx]}
         </div>
       </div>
     </>

@@ -40,7 +40,7 @@ export default function Ending() {
             <img
               src={MarkBrown}
               alt={`Mark Brown`}
-              className={`absolute w-[45vw]`}
+              className={`absolute w-[35vw]`}
             />
             {/*<div style={{ backgroundImage: `url${Computer}` }} className={`w-screen h-screen`}></div>*/}
             {/*<img*/}
