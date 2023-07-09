@@ -1,9 +1,45 @@
-import useScene from "../store";
+import useScene, { Game, useGameStore } from "../store";
 import gmtkGamejam from "../resources/gmtk2023.png";
 import { YoutubeLayout } from "../components/Layout";
+import { useEffect, useState } from "react";
+import {
+  nullGameObject,
+  randomPick,
+  randomPickFollowOriginRule,
+} from "../utils/GameUtils";
+import gameData, { GameItem } from "../data/data";
+import _ from "lodash";
 
 export default function SceneGMTK2023() {
-  const { nextScene, reset } = useScene();
+  const { nextScene } = useScene();
+  const {
+    selectedGameListLen,
+    playableGameListLen,
+
+    updatePlayableGameList,
+    updateSelectedGameList,
+  } = useGameStore();
+
+  useEffect(() => {
+    const list = randomPickFollowOriginRule(gameData, playableGameListLen);
+    const playlist = list.map((gi: GameItem) => ({
+      url: gi.game,
+      title: gi.title,
+      description: gi.description,
+      thumbnail: gi.cover,
+      width: gi.width,
+      height: gi.height,
+    }));
+    updatePlayableGameList(playlist); // TODO: 保存正确的顺序
+
+    const selected: Game[] = [];
+    for (var i = 0; i < selectedGameListLen; i++) {
+      selected.push(_.cloneDeep(nullGameObject));
+    }
+    updateSelectedGameList(selected);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <YoutubeLayout>
       <div className="relative">
