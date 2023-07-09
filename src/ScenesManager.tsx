@@ -16,7 +16,7 @@ export default function ScenesManager() {
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-center text-white m-0 p-0">
+    <div className="w-full text-white m-0 p-0">
       <div>{scenes[idx]}</div>
     </div>
   );
