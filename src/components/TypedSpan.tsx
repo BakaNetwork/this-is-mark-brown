@@ -6,17 +6,20 @@ import Typist from "react-typist";
  * 带打字机效果的span组件
  * @param strings 要显示的字符串数组
  * @param typeSpeed 打字速度，默认 50
+ * @param onTypingFinished 打字完成的回调
  * @param props
  * @constructor
  */
 export const TypedSpan = ({
   strings = [""],
   typeSpeed = 50,
+  onTypingFinished,
   ...props
 }: {
   children?: ReactNode;
   strings?: string[];
   typeSpeed?: number;
+  onTypingFinished?: Function;
 }) => {
   // Create reference to store the DOM element containing the animation
   const el = useRef(null);
@@ -93,6 +96,10 @@ export const TypedSpan = ({
       {/*<span className={`whitespace-pre`} ref={el} />*/}
       <Typist
         onCharacterTyped={() => playSound()}
+        onTypingDone={() => {
+          console.log("typing finished!");
+          onTypingFinished && onTypingFinished();
+        }}
         avgTypingDelay={typeSpeed}
         stdTypingDelay={typeSpeed / 2}
         cursor={{

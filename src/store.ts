@@ -4,6 +4,8 @@ import { nullGameObject, swap } from "./utils/GameUtils";
 type Store = {
   idx: number;
   len: number;
+  prologueFinished: boolean;
+  setPrologueFinished: (bool: boolean) => void;
   nextScene: () => void;
   reset: () => void;
   updateLen: (num: number) => void;
@@ -12,6 +14,8 @@ type Store = {
 const useScene = create<Store>((set) => ({
   idx: 0,
   len: 0,
+  prologueFinished: false,
+  setPrologueFinished: (bool: boolean) => set({ prologueFinished: bool }),
   nextScene: () => set((state) => ({ idx: (state.idx + 1) % state.len })),
   reset: () => set({ idx: 0 }),
   updateLen: (len: number) => set({ len: len }),
