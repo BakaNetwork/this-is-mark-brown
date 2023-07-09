@@ -135,6 +135,8 @@ function CurrentGameChangeContainer({
     nextCurrentGame,
     prevCurrentGame,
   } = useGameStore();
+
+  const { map, updateMap } = useRank();
   return (
     <div className="flex flex-col items-center justify-center relative">
       <Thumbnail
@@ -161,6 +163,10 @@ function CurrentGameChangeContainer({
                 updateSelectedGameList
               );
               if (flag) {
+                const rankMap = map;
+                const lz = _.cloneDeep([Rank.GOOD, Rank.GOOD, Rank.GOOD]);
+                rankMap.set(gameList[idx].url, lz);
+                updateMap(rankMap);
                 openModalFunc();
               }
             }}
@@ -246,51 +252,57 @@ function RankModal({
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Transition.Child
-        as="div"
-        enter="ease-out duration-300"
-        enterFrom="opacity-0 scale-95"
-        enterTo="opacity-100 scale-100"
-        leave="ease-in duration-200"
-        leaveFrom="opacity-100 scale-100"
-        leaveTo="opacity-0 scale-95"
-      >
-        <div className="bg-white p-2">
-          <RankItem
-            axis="&nbsp;&nbsp;&nbsp;&nbsp;Creativity"
-            idx={RankAxis.CREATIVITY}
-          />
-          <RankItem
-            axis="&nbsp;&nbsp;&nbsp;Enjoyment"
-            idx={RankAxis.ENJOYMENT}
-          />
-          <RankItem axis="Presentation" idx={RankAxis.PRESENTATION} />
-        </div>
-        <button
-          className="p-2 bg-red-200"
-          onClick={() => {
-            const rankMap = map;
-            const lz = _.cloneDeep(ranks);
-            rankMap.set(currentGame.url, lz);
-            setRanks([Rank.GOOD, Rank.GOOD, Rank.GOOD]);
-            closeFunc();
-          }}
-        >
-          apply
-        </button>
-        <button
-          className="p-2 bg-red-200"
-          onClick={() => {
-            const rankMap = map;
-            const lz = _.cloneDeep(ranks);
-            rankMap.set(currentGame.url, lz);
-            setRanks([Rank.BAD, Rank.BAD, Rank.BAD]);
-            closeFunc();
-          }}
-        >
-          Close
-        </button>
-      </Transition.Child>
+      <Dialog open={isOpen} onClose={() => closeFunc()}>
+        <Dialog.Panel as="div" className="absolute top-[30%]">
+          <Transition.Child
+            as="div"
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <div className="bg-white p-2">
+              <RankItem
+                axis="&nbsp;&nbsp;&nbsp;&nbsp;Creativity"
+                idx={RankAxis.CREATIVITY}
+              />
+              <RankItem
+                axis="&nbsp;&nbsp;&nbsp;Enjoyment"
+                idx={RankAxis.ENJOYMENT}
+              />
+              <RankItem axis="Presentation" idx={RankAxis.PRESENTATION} />
+            </div>
+            <button
+              className="p-2 bg-red-200"
+              onClick={() => {
+                const rankMap = map;
+                const lz = _.cloneDeep(ranks);
+                rankMap.set(currentGame.url, lz);
+                updateMap(rankMap);
+                setRanks([Rank.GOOD, Rank.GOOD, Rank.GOOD]);
+                closeFunc();
+              }}
+            >
+              apply
+            </button>
+            <button
+              className="p-2 bg-red-200"
+              onClick={() => {
+                const rankMap = map;
+                const lz = _.cloneDeep(ranks);
+                rankMap.set(currentGame.url, lz);
+                updateMap(rankMap);
+                setRanks([Rank.GOOD, Rank.GOOD, Rank.GOOD]);
+                closeFunc();
+              }}
+            >
+              Close
+            </button>
+          </Transition.Child>
+        </Dialog.Panel>
+      </Dialog>
     </Transition>
   );
 }
@@ -343,14 +355,15 @@ export default function MainGame() {
         />
       </div>
       <div className="flex flex-col items-center justify-center">
-        <button
+        {/* <button
           className="bg-white p-2"
           onClick={() => {
             console.log(map);
+            console.log("selected！", selectedGameList);
           }}
         >
           debug!
-        </button>
+        </button> */}
         <div>
           <CurrentGameChangeContainer
             gameList={gameList}
