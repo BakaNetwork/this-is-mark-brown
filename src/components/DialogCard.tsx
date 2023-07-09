@@ -7,10 +7,14 @@ import Typed from "typed.js";
  * @param props
  * @constructor
  */
-export const DialogCard = ({ children, ...props }: Props) => {
+export const DialogCard = ({ className, children, ...props }: Props) => {
   return (
     <>
-      <div className={`border-2 border-amber-200 rounded-2xl p-4`}>
+      <div
+        className={`${
+          className ? className : ""
+        } border-2 border-amber-200 rounded-2xl p-4`}
+      >
         {children}
       </div>
     </>
@@ -18,6 +22,7 @@ export const DialogCard = ({ children, ...props }: Props) => {
 };
 
 interface Props {
+  className?: string;
   children?: ReactNode;
   // any props that come into the component
 }

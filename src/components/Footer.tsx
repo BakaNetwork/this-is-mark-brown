@@ -6,7 +6,7 @@ export default function Footer() {
   const { nextScene, reset } = useScene();
 
   return (
-    <div className="absolute bottom-0 w-full flex flex-col items-center">
+    <div className="fixed bottom-0 w-full flex flex-col items-center">
       <div className="flex flex-row justify-between bg-white w-full px-4">
         {/* TODO: some buttons */}
         <div className="flex flex-row justify-center items-center ">

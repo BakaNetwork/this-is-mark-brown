@@ -32,7 +32,24 @@ export default function Intro() {
               typeSpeed={1}
               strings={prologue}
               onTypingFinished={() => setPrologueFinished(true)}
-            ></TypedSpan>
+            >
+              <span>Hi, I'm Mark Brown, and this is Game Maker's Toolkit.</span>
+              <br />
+              <span>
+                "I'm a YouTuber who recently hosted a Game Jam, the GMTK Game
+                Jam 2023.
+              </span>
+              <br />
+              <span>
+                Now, I'm going to play through the games submitted to itch.io
+                for the jam and pick the most unique and enjoyable ones.
+              </span>
+              <br />
+              <span>
+                Then I'll edit a video titled "The Best Games from GMTK Game Jam
+                2023."
+              </span>
+            </TypedSpan>
           </DialogCard>
           {prologueFinished && (
             <>

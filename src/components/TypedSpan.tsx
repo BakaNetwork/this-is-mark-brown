@@ -4,9 +4,11 @@ import Typist from "react-typist";
 
 /**
  * 带打字机效果的span组件
- * @param strings 要显示的字符串数组
+ * @param strings （已弃用）要显示的字符串数组
  * @param typeSpeed 打字速度，默认 50
  * @param onTypingFinished 打字完成的回调
+ * @param children 显示的内容
+ * @param className
  * @param props
  * @constructor
  */
@@ -14,8 +16,11 @@ export const TypedSpan = ({
   strings = [""],
   typeSpeed = 50,
   onTypingFinished,
+  children,
+  className,
   ...props
 }: {
+  className?: string;
   children?: ReactNode;
   strings?: string[];
   typeSpeed?: number;
@@ -95,6 +100,7 @@ export const TypedSpan = ({
     <>
       {/*<span className={`whitespace-pre`} ref={el} />*/}
       <Typist
+        className={className}
         onCharacterTyped={() => playSound()}
         onTypingDone={() => {
           console.log("typing finished!");
@@ -110,22 +116,7 @@ export const TypedSpan = ({
           hideWhenDoneDelay: 1000,
         }}
       >
-        <span>Hi, I'm Mark Brown, and this is Game Maker's Toolkit.</span>
-        <br />
-        <span>
-          "I'm a YouTuber who recently hosted a Game Jam, the GMTK Game Jam
-          2023.
-        </span>
-        <br />
-        <span>
-          Now, I'm going to play through the games submitted to itch.io for the
-          jam and pick the most unique and enjoyable ones.
-        </span>
-        <br />
-        <span>
-          Then I'll edit a video titled "The Best Games from GMTK Game Jam
-          2023."
-        </span>
+        {children}
       </Typist>
     </>
   );

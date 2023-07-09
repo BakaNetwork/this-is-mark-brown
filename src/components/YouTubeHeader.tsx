@@ -14,7 +14,7 @@ export default function YouTubeHeader() {
 
   return (
     <>
-      <div className="absolute top-0 left-0 flex justify-center">
+      <div className="fixed top-0 left-0 flex justify-center">
         <div>
           <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -70,7 +70,7 @@ export default function YouTubeHeader() {
           </Transition>
         </div>
       </div>
-      <div className="w-full bg-youtube-darkbg text-white flex flex-row py-2 justify-between items-center px-2">
+      <div className="fixed top-0 left-0 h-16 w-full bg-youtube-darkbg text-white flex flex-row py-2 justify-between items-center px-2">
         <div className="flex flex-row">
           <div>
             <svg

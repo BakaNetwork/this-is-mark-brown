@@ -6,6 +6,11 @@ type Store = {
   len: number;
   prologueFinished: boolean;
   setPrologueFinished: (bool: boolean) => void;
+  presentationIdx: number;
+  setPresentation: (idx: number) => void;
+  prevPresentation: () => void;
+  nextPresentation: () => void;
+  prevScene: () => void;
   nextScene: () => void;
   reset: () => void;
   updateLen: (num: number) => void;
@@ -15,7 +20,14 @@ const useScene = create<Store>((set) => ({
   idx: 0,
   len: 0,
   prologueFinished: false,
+  presentationIdx: 0,
+  setPresentation: (idx: number) => set({ presentationIdx: idx }),
+  prevPresentation: () =>
+    set((state) => ({ presentationIdx: state.presentationIdx - 1 })),
+  nextPresentation: () =>
+    set((state) => ({ presentationIdx: state.presentationIdx + 1 })),
   setPrologueFinished: (bool: boolean) => set({ prologueFinished: bool }),
+  prevScene: () => set((state) => ({ idx: (state.idx - 1) % state.len })),
   nextScene: () => set((state) => ({ idx: (state.idx + 1) % state.len })),
   reset: () => set({ idx: 0 }),
   updateLen: (len: number) => set({ len: len }),

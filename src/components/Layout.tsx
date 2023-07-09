@@ -13,7 +13,9 @@ export const YoutubeLayout = ({ children, ...props }: Props) => {
   return (
     <>
       <YouTubeHeader></YouTubeHeader>
-      <div className={`w-screen flex justify-center items-center align-middle`}>
+      <div
+        className={`w-screen h-screen flex justify-center items-center align-middle m-0 pt-16 pb-[104px]`}
+      >
         {children}
       </div>
       <Footer></Footer>

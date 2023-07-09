@@ -11,3 +11,16 @@ body {
   background: #000000;
   font-family: pixel;
 }
+
+.commentElement {
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
