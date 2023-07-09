@@ -15,6 +15,7 @@ import { Separator } from "../components/ui/Separator";
 import MarkBrown from "../resources/mark-brown.png";
 import score, { rightNum } from "../utils/Distance";
 import _ from "lodash";
+import Computer from "../resources/computer.png";
 
 export default function Ending() {
   const [reset] = useScene((state) => [state.reset], shallow);
@@ -39,26 +40,34 @@ export default function Ending() {
             <img
               src={MarkBrown}
               alt={`Mark Brown`}
-              className={`absolute w-[37vw]`}
+              className={`absolute w-[45vw]`}
             />
+            {/*<div style={{ backgroundImage: `url${Computer}` }} className={`w-screen h-screen`}></div>*/}
+            {/*<img*/}
+            {/*  src={Computer}*/}
+            {/*  alt={`Computer`}*/}
+            {/*  className={`-z-50 absolute top-16 w-screen aspect-video`}*/}
+            {/*/>*/}
           </div>
-          <div className={`flex flex-col basis-6/12 `}>
-            <DialogCard className={`m-4`}>
+          <div className={`flex flex-col gap-8 basis-6/12`}>
+            <div
+              className={`text-xl rounded-2xl border-4 border-orange-700 mt-8 mx-4`}
+            >
               <TypedSpan>
                 <span>I'm Mark Brown, and this is Game Maker's Toolkit.</span>
                 <br />
                 <span>I'll see you, next time.</span>
               </TypedSpan>
-            </DialogCard>
 
-            <div className={`border-amber-200 border-2 flex-auto m-4 p-4`}>
-              Correctly sorted games:&nbsp;
-              {rightNum(selectedGameList, playableGameList)}
-              <br />
-              Precision: {scoreNumber}
-              <br />
-              User comments: Good
-              <br />
+              <div className={`text-xl flex-auto m-4 p-4`}>
+                Correctly sorted games:&nbsp;
+                {rightNum(selectedGameList, playableGameList)}
+                <br />
+                Precision: {scoreNumber}
+                <br />
+                User comments: Good
+                <br />
+              </div>
             </div>
           </div>
           <div className={`flex flex-col gap-8 m-4 p-4 basis-3/12`}>
@@ -69,19 +78,23 @@ export default function Ending() {
               Play Again!
             </button>
             <div
-              className={`text-center rounded-2xl border-4 border-orange-700 py-4`}
+              className={`text-center rounded-2xl border-4 border-orange-700 p-4`}
             >
               <span className={`text-xl`}>Developer:</span>
               <br />
               Travis Road, Ridd Ma
             </div>
             <div
-              className={`text-center rounded-2xl border-4 border-orange-700 py-4`}
+              className={`text-center rounded-2xl border-4 border-orange-700 p-4`}
             >
               <span className={`text-xl`}>Special Thanks:</span>
               <br />
-              Mark Brown and ALL of you who take part in GMTK Game Jam that
-              makes amazing games!
+              Mark Brown
+              <br />
+              and
+              <br />
+              ALL of you who take part in GMTK Game Jam that makes amazing
+              games!
             </div>
             <div></div>
           </div>
