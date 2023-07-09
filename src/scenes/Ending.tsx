@@ -11,15 +11,17 @@ import { Simulate } from "react-dom/test-utils";
 import play = Simulate.play;
 import { TypedSpan } from "../components/TypedSpan";
 import { DialogCard } from "../components/DialogCard";
+import { Separator } from "../components/ui/Separator";
 
 export default function Ending() {
-  const [finalComments] = useState<UserComment[]>(getFinalComments(0.6));
-  let [shownComments, setShownComments] = useState<UserComment[]>([]);
+  const [reset] = useScene((state) => [state.reset], shallow);
 
   return (
     <>
       <YoutubeLayout>
-        <div className={`flex flex-row w-full h-full bg-gray-600 justify-center`}>
+        <div
+          className={`flex flex-row w-full h-full bg-gray-600 justify-center`}
+        >
           <div className={`border-amber-200 border-2 basis-3/12`}></div>
           <div className={`flex flex-col bg-gray-500 basis-6/12 `}>
             <DialogCard className={`m-4`}>
@@ -31,6 +33,8 @@ export default function Ending() {
             </DialogCard>
 
             <div className={`border-amber-200 border-2 flex-auto m-4 p-4`}>
+              Correctly sorted games: 4
+              <br />
               Precision: 80%
               <br />
               User comments: Good
@@ -38,8 +42,25 @@ export default function Ending() {
             </div>
           </div>
           <div
-            className={`flex flex-col-reverse border-amber-200 border-2 m-4 p-4 basis-3/12 overflow-y-hidden`}
-          ></div>
+            className={`flex flex-col gap-8 border-amber-200 border-2 m-4 p-4 basis-3/12 overflow-y-hidden`}
+          >
+            <button onClick={reset}>Play Again</button>
+            <Separator />
+            <div>
+              Developer:
+              <br />
+              Travis Road
+              <br />
+              Ridd Ma
+            </div>
+            <Separator />
+            <div>
+              Special Thanks:
+              <br />
+              Mark Brown and ALL of you who take part in GMTK Game Jam that
+              makes amazing games!
+            </div>
+          </div>
           <div
             className={`absolute bg-blue-400 opacity-0 w-screen pointer-events-none`}
           ></div>
